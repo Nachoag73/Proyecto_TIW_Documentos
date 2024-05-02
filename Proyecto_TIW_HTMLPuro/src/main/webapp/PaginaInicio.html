@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página de Inicio</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/MICSS.css" th:href="@{/CSS/MICSS.css}" />
+
+</head>
+<body>
+	<h1>GESTOR DE DOCUMENTOS</h1>
+
+	<!-- Botón de Cerrar Sesión -->
+	<div align="right">
+		<form action="LogoutController" method="get">
+			<button type="submit">Logout</button>
+		</form>
+	</div>
+
+	<!-- Lista de Carpetas -->
+	<h2>Carpetas</h2>
+
+	<div th:if="${carpetas.size() > 0}">
+		<table border="1">
+			<thead>
+				<tr>
+
+					<th>Nombre</th>
+					<th>Fecha</th>
+					<th>Contenido</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Itera sobre la lista de carpetas y muestra cada una -->
+				<tr th:each="carpeta : ${carpetas}">
+					<td th:text="${carpeta.folder_name}"></td>
+					<td th:text="${carpeta.folder_creation}"></td>
+					<td><a
+						th:href="@{/ContenidoController(folder_id=${carpeta.folder_id})}">
+							Contenido </a></td>
+
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Verificar si se accedió desde la página de contenido -->
+	<div th:if="${documento}">
+
+		<br> <br> <br>
+		<div align="left">
+			<button onclick="goBack()">Anterior</button>
+		</div>
+
+		<h2>Acciones de Movimiento</h2>
+
+		<div th:if="${mensaje}">
+			<p th:text="${mensaje}"></p>
+		</div>
+
+
+		<form action="MoverController" method="post">
+
+			<input type="hidden" id="document_id" name="document_id"
+				th:value="${documento.documento_id}"> <label for="folder">Selecciona
+				una carpeta de destino:</label> <select id="folder" name="folder_id">
+
+				<option th:each="carpeta : ${carpetas}"
+					th:value="${carpeta.folder_id}" th:text="${carpeta.folder_name}"></option>
+
+			</select>
+
+			<button type="submit">Mover Documento</button>
+
+		</form>
+
+		<script>
+			function goBack() {
+				window.history.back();
+			}
+		</script>
+
+	</div>
+
+	<br>
+	<br>
+	<br>
+
+	<button onclick="window.location.href = 'GestionContenido.html';">GESTOR
+		DE CONTENIDO</button>
+
+</body>
+</html>
+

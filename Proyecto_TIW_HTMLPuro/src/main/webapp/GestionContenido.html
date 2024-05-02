@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestion de Contenido</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/MICSS.css" th:href="@{/CSS/MICSS.css}"/>
+</head>
+<body>
+
+	<div align="right">
+		<form action="LogoutController" method="get">
+			<button type="submit">Logout</button>
+		</form>
+	</div>
+
+	<div align="left">
+		<button onclick="goBack()">Anterior</button>
+	</div>
+
+	<div>
+		<h2>Create Folder</h2>
+		<form action="CreateFolderController" method="POST">
+			Name: <input type="text" name="folder_name" required> <br>
+
+			<input type="submit" value="Create">
+		</form>
+	</div>
+
+	<div>
+		<h2>Create Document</h2>
+		<form action="CreateDocumentController" method="POST">
+			Name: <input type="text" name="document_name" required> <br>
+			Resumen: <input type="text" name="resumen" required><br>
+			Type: <input type="text" name="type" required><br>
+			Folder Name:  <input type="text" name="folder_name" required><br> <input
+				type="submit" value="Create">
+		</form>
+	</div>
+
+	<script>
+		function goBack() {
+			window.history.back();
+		}
+	</script>
+
+</body>
+</html>

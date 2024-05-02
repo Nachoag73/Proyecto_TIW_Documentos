@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONTENIDO</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/MICSS.css" th:href="@{/CSS/MICSS.css}"/>
+</head>
+<body>
+	<h1>GESTOR DE DOCUMENTOS</h1>
+
+	<!-- Botón de Cerrar Sesión -->
+	<div align="right">
+		<form action="LogoutController" method="get">
+			<button type="submit">Logout</button>
+		</form>
+	</div>
+
+	<div align="left">
+		<button onclick="goBack()">Anterior</button>
+	</div>
+
+
+	<h2>Contenido Carpetas</h2>
+
+	<div th:if="${documentos.size() >0}">
+		<table border="1">
+			<thead>
+				<tr>
+
+					<th>Id</th>
+					<th>Nombre</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Itera sobre la lista de Documentos y muestra cada una -->
+				<tr th:each="documento : ${documentos}">
+					<td th:text="${documento.documento_id}"></td>
+					<td th:text="${documento.documento_name}"></td>
+					<td><a th:href="@{/MostrarDocController(document_id=${documento.documento_id})}"> Entrar </a></td>
+					<td><a th:href="@{/MoverController(document_id=${documento.documento_id})}"> Mover </a></td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	
+
+	<script>
+		function goBack() {
+			window.history.back();
+		}
+	</script>
+
+</body>
+</html>
